@@ -284,7 +284,7 @@ class Request(object):
             self.task.backend.mark_as_revoked(self.id, reason)
         self.acknowledge()
         self._already_revoked = True
-        send_revoked(self.task, terminated=terminated,
+        send_revoked(self.task, task_id=self.id, terminated=terminated,
                      signum=signum, expired=expired)
 
     def revoked(self):

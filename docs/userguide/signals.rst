@@ -149,6 +149,9 @@ Sender is the task class executed.
 
 Provides arguments
 
+* task_id
+    Id of the task.
+
 * result
     Return value of the task.
 
@@ -181,6 +184,29 @@ Provides arguments:
 * einfo
     The :class:`celery.datastructures.ExceptionInfo` instance.
 
+.. signal:: task_retry
+
+task_retry
+~~~~~~~~~~~~
+
+Dispatched when a task fails, but will be retried in the future.
+
+Sender is the task class executed.
+
+Provides arguments:
+
+* task_id
+    Id of the task.
+
+* request
+    Task request object.
+
+* reason
+    The return value of the task.
+
+* einfo
+    The :class:`celery.datastructures.ExceptionInfo` instance.
+
 .. signal:: task_revoked
 
 task_revoked
@@ -191,6 +217,9 @@ Dispatched when a task is revoked/terminated by the worker.
 Sender is the task class revoked/terminated.
 
 Provides arguments:
+
+* task_id
+    Id of the task.
 
 * terminated
     Set to :const:`True` if the task was terminated.

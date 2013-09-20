@@ -119,7 +119,7 @@ class TraceInfo(object):
             if store_errors:
                 task.backend.mark_as_retry(req.id, reason.exc, einfo.traceback)
             task.on_retry(reason.exc, req.id, req.args, req.kwargs, einfo)
-            signals.task_retry.send(sender=task, request=req,
+            signals.task_retry.send(sender=task, task_id=req.id, request=req,
                                     reason=reason, einfo=einfo)
             return einfo
         finally:
@@ -269,7 +269,7 @@ def build_tracer(name, task, loader=None, hostname=None, store_errors=True,
                     if task_on_success:
                         task_on_success(retval, uuid, args, kwargs)
                     if success_receivers:
-                        send_success(sender=task, result=retval)
+                        send_success(sender=task, task_id=uuid, result=retval)
 
                 # -* POST *-
                 if state not in IGNORE_STATES:

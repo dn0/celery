@@ -17,16 +17,19 @@ from .utils.dispatch import Signal
 
 task_sent = Signal(providing_args=[
     'task_id', 'task', 'args', 'kwargs', 'eta', 'taskset'])
-task_prerun = Signal(providing_args=['task_id', 'task', 'args', 'kwargs'])
+task_prerun = Signal(providing_args=[
+    'task_id', 'task', 'args', 'kwargs'])
 task_postrun = Signal(providing_args=[
     'task_id', 'task', 'args', 'kwargs', 'retval'])
-task_success = Signal(providing_args=['result'])
+task_success = Signal(providing_args=[
+    'task_id', 'result'])
 task_retry = Signal(providing_args=[
-    'request', 'reason', 'einfo',
+    'task_id', 'request', 'reason', 'einfo',
 ])
 task_failure = Signal(providing_args=[
     'task_id', 'exception', 'args', 'kwargs', 'traceback', 'einfo'])
-task_revoked = Signal(providing_args=['terminated', 'signum', 'expired'])
+task_revoked = Signal(providing_args=[
+    'task_id', 'terminated', 'signum', 'expired'])
 celeryd_init = Signal(providing_args=['instance', 'conf'])
 celeryd_after_setup = Signal(providing_args=['instance', 'conf'])
 worker_init = Signal(providing_args=[])
